@@ -3,12 +3,12 @@ const apiurl = "https://archive-api.open-meteo.com/v1/archive?latitude=-45.0302&
 fetch(apiurl)
     .then(response => {
         if (!response.ok) {
-        throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok');
         }
         return response.json();
     })
     .then(data => {
-         console.log(data.daily.temperature_2m_max[0])
+        console.log(data.daily.temperature_2m_max[0])
     })
     .catch(error => {
         console.error('Error:', error);
