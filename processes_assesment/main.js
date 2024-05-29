@@ -1,14 +1,15 @@
 let temperature = ""
 let datepick = ""
+let date = ""
 
 function get_date() {
     let datepick = document.getElementById("dateInput").value;
     document.getElementById("date").textContent = datepick;
+    date = datepick
     get_weather()
 }
 
 function get_weather() {
-    let date = datepick
     const apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=-45.0302&longitude=168.6627&start_date=${date}&end_date=${date}&daily=temperature_2m_max&timezone=Pacific%2FAuckland`
 
     fetch(apiUrl)
@@ -26,6 +27,5 @@ function get_weather() {
             console.error('Error:', error);
         });
         
-        console.log(temperature)
         document.getElementById("temperature").innerHTML = temperature + "°";
     }
