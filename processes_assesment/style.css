@@ -1,0 +1,25 @@
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+.Card {
+    margin-top: 20px;
+    padding-left: 10px;
+    background-color: gray;
+    width: 200px;
+    border: solid, ;
+    border-width:5px;
+    border-color: black;
+    border-radius: 10px;
+}
+
+button {
+    border: solid;
+    border-radius: 10px;
+    background-color: gray;
+}
+
+button:hover {
+    background-color: lightblue;
+    cursor: pointer;
+}
