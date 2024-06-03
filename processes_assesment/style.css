@@ -23,3 +23,11 @@ button:hover {
     background-color: white;
     cursor: pointer;
 }
+
+#temperature_heading_max {
+    font-weight:700;
+}
+
+#temperature_heading_min {
+    font-weight:700;
+}
