@@ -13,12 +13,17 @@ async function get_weather() {
         })
         .then(data => {
             temperature = data.daily.temperature_2m_max[0]
-
+            document.getElementById("temperature").innerHTML = temperature + "°";
+            document.getElementById("date").textContent = datepick
+            document.getElementById("temperature_heading").textContent = "Max Temperature:"
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Error:', error)
+            document.getElementById("date").textContent = "Invalid Date"
+            document.getElementById("temperature").textContent = ""
+            document.getElementById("temperature_heading").textContent = ""
         });
         
-        document.getElementById("temperature").innerHTML = temperature + "°";
-        document.getElementById("date").textContent = datepick
     }
+
+    

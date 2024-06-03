@@ -20,6 +20,6 @@ button {
 }
 
 button:hover {
-    background-color: lightblue;
+    background-color: white;
     cursor: pointer;
 }
