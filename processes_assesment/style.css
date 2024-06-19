@@ -1,15 +1,23 @@
 * {
     font-family: "Roboto", sans-serif;
+
 }
 
 body {
-    background-color: #EEEEEE;
+    background-color: #DDDDDD;
+    
+}
+
+#date_input {
+    border:solid;
+    border-color: black;
+    border-radius: 10px;
 }
 
 .Card {
     margin-top: 20px;
     padding-left: 10px;
-    background-color: #DDDDDD;
+    background-color: #EEEEEE;
     width: 200px;
     border: solid, ;
     border-width:5px;
