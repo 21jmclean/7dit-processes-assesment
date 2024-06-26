@@ -1,4 +1,9 @@
-async function get_weather() {
+require('dotenv').config()
+
+async function call_api() {
+    
+    const STOCK_API_KEY = process.env.STOCK_API_KEY
+
     let datepick = document.getElementById("date_input").value;
     date = datepick;
 
@@ -102,9 +107,11 @@ async function get_weather() {
     ];
     
 
-    const apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=-45.0302&longitude=168.6627&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
+    const weather_apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=-45.0302&longitude=168.6627&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
+    const aapl_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=AAPL&apikey=${STOCK_API_KEY}`
+    console.log(aapl_stock_apiUrl)
 
-    await fetch(apiUrl)
+    await fetch(weather_apiUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -138,4 +145,4 @@ async function get_weather() {
          
     }
 
-    
+
