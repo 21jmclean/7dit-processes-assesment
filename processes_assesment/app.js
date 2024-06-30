@@ -1,7 +1,8 @@
 async function call_api() {
     var STOCK_API_KEY = config.STOCK_API_KEY
+
     let datepick = document.getElementById("date_input").value;
-    date = datepick;
+    let date = datepick;
 
     const weather_code_id = [
         "Clear sky",
@@ -105,8 +106,8 @@ async function call_api() {
 
     const weather_apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=-45.0302&longitude=168.6627&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
     const aapl_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=AAPL&apikey=${STOCK_API_KEY}`
-    console.log(aapl_stock_apiUrl)
-
+    const msft_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=MSFT&apikey=${STOCK_API_KEY}`
+    console.log(aapl)
     await fetch(weather_apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -118,7 +119,7 @@ async function call_api() {
             temperature_max = data.daily.temperature_2m_max[0]
             temperature_min = data.daily.temperature_2m_min[0]
             weather = weather_code_id[data.daily.weather_code[0]]
-            document.getElementById("date").textContent = datepick
+            document.getElementsByClassName("date").textContent = datepick
             document.getElementById("weather_code_heading").textContent = "Weather:"
             document.getElementById("weather_code").innerHTML = weather
             document.getElementById("temperature_max").innerHTML = temperature_max + "°"
@@ -131,7 +132,7 @@ async function call_api() {
             console.error('Error:', error)
             document.getElementById("weather_code_heading").textContent = ""
             document.getElementById("weather_code").innerHTML = ""
-            document.getElementById("date").textContent = "Invalid Date"
+            document.getElementsByClassName("date").textContent = "Invalid Date"
             document.getElementById("temperature_max").innerHTML = ""
             document.getElementById("temperature_heading_max").innerHTML= ""
             document.getElementById("temperature_min").innerHTML = ""
@@ -139,6 +140,39 @@ async function call_api() {
             
         });
          
+        await fetch(aapl_stock_apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+
+            .then(data => {
+                aapl_close = data["Time Series (Daily)"][date]["4. close"]
+                document.getElementsByClassName("date").textContent = date
+                document.getElementById("apple").textContent = "Apple:"
+                document.getElementById("apple_stock_price").textContent = `$${aapl_close}`
+
+            })
+
+        await fetch(msft_stock_apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+
+            .then(data => {
+                msft_close = data["Time Series (Daily)"][date]["4. close"]
+                document.getElementById("microsoft").textContent = "Microsoft:"
+                document.getElementById("microsoft_stock_price").textContent = `$${msft_close}`
+
+            })
+
+            .catch(error => {
+                console.error('Error:', error)
+                document.getElementsByClassName("Card").innerHTML = ""
+            });
     }
-
-
