@@ -1,9 +1,5 @@
-require('dotenv').config()
-
 async function call_api() {
-    
-    const STOCK_API_KEY = process.env.STOCK_API_KEY
-
+    var STOCK_API_KEY = config.STOCK_API_KEY
     let datepick = document.getElementById("date_input").value;
     date = datepick;
 
