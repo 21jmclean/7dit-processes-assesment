@@ -121,8 +121,8 @@ async function call_api() {
             temperature_max = data.daily.temperature_2m_max[0]
             temperature_min = data.daily.temperature_2m_min[0]
             weather = weather_code_id[data.daily.weather_code[0]]
-            document.getElementById("location_title").textContent = "Queenstown"
-            document.getElementsByClassName("date").textContent = datepick
+            list =document.getElementById("location_title").textContent = "Queenstown"
+            document.getElementById("date").textContent = datepick
             document.getElementById("weather_code_heading").textContent = "Weather:"
             document.getElementById("weather_code").innerHTML = weather
             document.getElementById("temperature_max").innerHTML = temperature_max + "°"
@@ -154,7 +154,6 @@ async function call_api() {
             .then(data => {
                 aapl_close = data["Time Series (Daily)"][date]["4. close"]
                 aapl_close = (Math.round(aapl_close * 100))/100
-                document.getElementsByClassName("date").textContent = date
                 document.getElementById("apple").textContent = "Apple:"
                 document.getElementById("apple_stock_price").textContent = `$${aapl_close}`
 
@@ -163,7 +162,6 @@ async function call_api() {
             .catch(error => {
                 console.error('Error:', error)
                 document.getElementById("apple").textContent = "No Stocks For This Date"
-                document.getElementsByClassName("Date").innerHTML = "Invalid Date"
                 document.getElementById("apple_stock_price").textContent = ""
 
             });
@@ -186,7 +184,6 @@ async function call_api() {
 
             .catch(error => {
                 console.error('Error:', error)
-                document.getElementsByClassName("Date").innerHTML = "Invalid Date"
                 document.getElementById("microsoft").textContent = ""
                 document.getElementById("microsoft_stock_price").textContent = ""
 

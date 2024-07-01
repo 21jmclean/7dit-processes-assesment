@@ -25,6 +25,10 @@ body {
     border-radius: 10px;
 }
 
+#weather_code_heading {
+    font-weight: 700;
+}
+
 button {
     border: solid;
     border-radius: 10px;
