@@ -153,6 +153,7 @@ async function call_api() {
 
             .then(data => {
                 aapl_close = data["Time Series (Daily)"][date]["4. close"]
+                aapl_close = (Math.round(aapl_close * 100))/100
                 document.getElementsByClassName("date").textContent = date
                 document.getElementById("apple").textContent = "Apple:"
                 document.getElementById("apple_stock_price").textContent = `$${aapl_close}`
@@ -177,6 +178,7 @@ async function call_api() {
 
             .then(data => {
                 msft_close = data["Time Series (Daily)"][date]["4. close"]
+                msft_close = (Math.round(msft_close * 100))/100
                 document.getElementById("microsoft").textContent = "Microsoft:"
                 document.getElementById("microsoft_stock_price").textContent = `$${msft_close}`
 
