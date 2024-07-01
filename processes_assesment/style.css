@@ -14,8 +14,22 @@ body {
     border-radius: 10px;
 }
 
+header {
+    margin-left: 5px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 .Card {
+    justify-content: flex-start;
+    align-content: flex-start;
     margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     padding-left: 10px;
     background-color: #EEEEEE;
     width: 200px;

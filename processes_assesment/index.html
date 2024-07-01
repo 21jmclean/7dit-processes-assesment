@@ -10,28 +10,33 @@
     <title>A Day in History</title>
 </head>
 <body>
-    <h1>A Day in History</h1>
-    <p>Enter a date after 01/01/1940</p>
-    <input type="date" id="date_input">
-    <button id="confirm_date" onclick="call_api()">Confirm Date</button>
-    <div class="Card">
-        <h2 id = "name">Past Weather</h1>
-        <h3 id="location_title"></h3>
-        <p id="date"></p>
-        <p id="weather_code_heading"></p>
-        <p id="weather_code"></p>
-        <p id="temperature_heading_max"></p>
-        <p id = "temperature_max"></h3>
-        <p id="temperature_heading_min"></p>
-        <p id = "temperature_min"></h3>
-    </div>
+    <header>
+        <h1>A Day in History</h1>
+        <p>Enter a date after 01/01/1940</p>
+        <input type="date" id="date_input">
+        <button id="confirm_date" onclick="call_api()">Confirm Date</button>
+    </header>
+    <div class="flex-container">
+        <div class="Card">
+            <h2 id = "name">Past Weather</h1>
+            <h3 id="location_title"></h3>
+            <p id="date"></p>
+            <p id="weather_code_heading"></p>
+            <p id="weather_code"></p>
+            <p id="temperature_heading_max"></p>
+            <p id = "temperature_max"></h3>
+            <p id="temperature_heading_min"></p>
+            <p id = "temperature_min"></h3>
+        </div>
+    
 
-    <div class="Card">
-        <h2>Past Stock Prices</h2>
-        <h3 id="apple"></h3>
-        <p id="apple_stock_price"></p>
-        <h3 id="microsoft"></h3>
-        <p id="microsoft_stock_price"></p>
+        <div class="Card">
+            <h2>Past Stock Prices</h2>
+            <h3 id="apple"></h3>
+            <p id="apple_stock_price"></p>
+            <h3 id="microsoft"></h3>
+            <p id="microsoft_stock_price"></p>
+        </div>
     </div>
 
     <script type="text/javascript" src="apple-stock.json"></script>
