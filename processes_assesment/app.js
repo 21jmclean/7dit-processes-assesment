@@ -185,6 +185,7 @@ async function call_api() {
             .catch(error => {
                 console.error('Error:', error)
                 document.getElementsByClassName("Date").innerHTML = "Invalid Date"
+                document.getElementById("microsoft").textContent = ""
                 document.getElementById("microsoft_stock_price").textContent = ""
 
             });
