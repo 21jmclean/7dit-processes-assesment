@@ -1,5 +1,7 @@
 .env
 config.js
+apple-stock.json
+microsoft-stock.json
 !**/glob-import/dir/node_modules
 .DS_Store
 .idea
