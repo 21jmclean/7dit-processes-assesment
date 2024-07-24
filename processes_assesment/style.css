@@ -8,14 +8,24 @@ body {
     
 }
 
+.top-info {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+}
+
+#location_input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid;
+    border-color: black;
+    border-radius: 5px;
+}
+
 #date_input {
     border:solid;
     border-color: black;
     border-radius: 10px;
-}
-
-header {
-    margin-left: 5px;
 }
 
 .flex-container {

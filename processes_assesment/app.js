@@ -3,6 +3,9 @@ async function call_api() {
 
     let datepick = document.getElementById("date_input").value;
     let date = datepick;
+    let location = document.getElementById("location_input").value;
+    let lat = 0
+    let lon = 0
 
     const weather_code_id = [
         "Clear sky",
@@ -103,8 +106,21 @@ async function call_api() {
         "Thunderstorm, heavy, with hail at observation"
     ];
     
+    const  geocode_apiurl = `https://geocode.maps.co/search?q=${location}&api_key=66a02cc2e9e2a170461835hsx0fb345`
 
-    const weather_apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=-45.0302&longitude=168.6627&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
+    await fetch(geocode_apiurl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            lat = data[0].lat
+            lon = data[0].lon
+        })
+
+    const weather_apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
     // const aapl_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=AAPL&apikey=${STOCK_API_KEY}`
     const aapl_stock_apiUrl = "apple-stock.json"
     // const msft_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=MSFT&apikey=${STOCK_API_KEY}`
@@ -121,7 +137,7 @@ async function call_api() {
             temperature_max = data.daily.temperature_2m_max[0]
             temperature_min = data.daily.temperature_2m_min[0]
             weather = weather_code_id[data.daily.weather_code[0]]
-            list =document.getElementById("location_title").textContent = "Queenstown"
+            list =document.getElementById("location_title").textContent = location
             document.getElementById("date").textContent = datepick
             document.getElementById("weather_code_heading").textContent = "Weather:"
             document.getElementById("weather_code").innerHTML = weather
@@ -133,7 +149,7 @@ async function call_api() {
 
         .catch(error => {
             console.error('Error:', error)
-            document.getElementById("location_title").textContent = "Invalid Date"
+            document.getElementById("location_title").textContent = "Invalid Date/location"
             document.getElementById("weather_code_heading").textContent = ""
             document.getElementById("weather_code").innerHTML = ""
             document.getElementById("temperature_max").innerHTML = ""

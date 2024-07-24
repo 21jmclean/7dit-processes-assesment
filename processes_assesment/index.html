@@ -11,10 +11,13 @@
 </head>
 <body>
     <header>
-        <h1>A Day in History</h1>
-        <p>Enter a date after 01/01/1940</p>
-        <input type="date" id="date_input">
-        <button id="confirm_date" onclick="call_api()">Confirm Date</button>
+        <div class="top-info">
+            <h1>A Day in History</h1>
+            <p>Enter a date after 01/01/1940</p>
+            <input type="date" id="date_input">
+            <input type="text" id="location_input" title="" placeholder="Please Enter a Location">
+            <button id="confirm_date" onclick="call_api()">Confirm</button>
+        </div>
     </header>
     <div class="flex-container">
         <div class="Card">
