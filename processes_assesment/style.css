@@ -11,8 +11,16 @@ body {
 .top-info {
     display: flex;
     flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    
+}
+
+input button {
     width: 240px;
 }
+   
 
 #location_input {
     margin-top: 10px;
@@ -32,6 +40,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .Card {
