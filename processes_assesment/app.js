@@ -1,5 +1,6 @@
-
 async function call_api() {
+    // Hidden API key.
+    
     var STOCK_API_KEY = config.STOCK_API_KEY
 
     let datepick = document.getElementById("date_input").value;
@@ -134,6 +135,8 @@ async function call_api() {
     // const msft_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=MSFT&apikey=${STOCK_API_KEY}`
     const msft_stock_apiUrl = "microsoft-stock.json"
 
+
+    // This fetch method gets data from a weather API and takes paramaters from the date input field. 
     await fetch(weather_apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -141,6 +144,8 @@ async function call_api() {
             }
             return response.json();
         })
+
+        // Update HTML Elements with weather data returned from the API. 
         .then(data => {
             temperature_max = data.daily.temperature_2m_max[0]
             temperature_min = data.daily.temperature_2m_min[0]
@@ -154,6 +159,7 @@ async function call_api() {
             document.getElementById("temperature_heading_min").textContent = "Min Temperature:"
         })
 
+        // Clear the data displayed on the page when an error occurs (Eg. If an invalid date is selected or there is a network error.)
         .catch(error => {
             console.error('Error:', error)
             document.getElementById("location_title").textContent = "Invalid Date/location"
@@ -165,7 +171,8 @@ async function call_api() {
             document.getElementById("temperature_heading_min").innerHTML = ""
             
         });
-         
+        
+        // Gets data from the stock API/json file for the stock AAPL
         await fetch(aapl_stock_apiUrl)
             .then(response => {
                 if (!response.ok) {
@@ -174,6 +181,7 @@ async function call_api() {
                 return response.json();
             })
 
+            // Update HTML Elements with stock data returned from the API. 
             .then(data => {
                 aapl_close = data["Time Series (Daily)"][date]["4. close"]
                 aapl_close = (Math.round(aapl_close * 100))/100
@@ -182,6 +190,7 @@ async function call_api() {
 
             })
 
+            // Clears data displayed on page when an error occurs.
             .catch(error => {
                 console.error('Error:', error)
                 document.getElementById("apple").textContent = "No Stocks For This Date"
@@ -189,6 +198,7 @@ async function call_api() {
 
             });
 
+        // Gets data from the stock API/json file for the stock MSFT
         await fetch(msft_stock_apiUrl)
             .then(response => {
                 if (!response.ok) {
@@ -197,6 +207,7 @@ async function call_api() {
                 return response.json();
             })
 
+            // Update HTML Elements with stock data returned from the API. 
             .then(data => {
                 msft_close = data["Time Series (Daily)"][date]["4. close"]
                 msft_close = (Math.round(msft_close * 100))/100
@@ -205,6 +216,7 @@ async function call_api() {
 
             })
 
+            // Clears data displayed on page when an error occurs.
             .catch(error => {
                 console.error('Error:', error)
                 document.getElementById("microsoft").textContent = ""
