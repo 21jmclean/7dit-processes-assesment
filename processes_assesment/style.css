@@ -3,9 +3,13 @@
 
 }
 
+html {
+    height: 100%
+}
+
 body {
-    background-color: #DDDDDD;
-    
+    background-size: fill;
+    background-image: linear-gradient(rgb(0, 179, 255), rgb(146, 200, 217));
 }
 
 .top-info {
@@ -21,6 +25,10 @@ input button {
     width: 240px;
 }
    
+::placeholder {
+    opacity: 1;
+    color: black;
+}
 
 #location_input {
     margin-top: 10px;
@@ -28,12 +36,19 @@ input button {
     border: solid;
     border-color: black;
     border-radius: 5px;
+    background: white;
+    
 }
 
 #date_input {
     border:solid;
     border-color: black;
     border-radius: 10px;
+    background-color: white;
+}
+
+#confirm_date {
+    background-color: white;
 }
 
 .flex-container {
@@ -50,7 +65,8 @@ input button {
     margin-left: 5px;
     margin-right: 5px;
     padding-left: 10px;
-    background-color: #EEEEEE;
+    background-size: fill;
+    background-image: linear-gradient(rgb(0, 179, 255), rgb(15, 167, 213));
     width: 200px;
     border: solid, ;
     border-width:5px;
@@ -62,15 +78,19 @@ input button {
     font-weight: 700;
 }
 
+#rest_of_location {
+    font-weight: 700;
+}
+
 button {
     border: solid;
     border-radius: 10px;
-    background-color: #DDDDDD;
-;
+    background-color: rgb(0, 179, 255);
+
 }
 
 button:hover {
-    background-color: white;
+    background-color: rgb(0, 179, 255);
     cursor: pointer;
     transition: .3s ease all;
     transform: translateY(-2px);
