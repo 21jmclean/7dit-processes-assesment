@@ -123,8 +123,10 @@ async function call_api() {
         })
         .then(data => {
             let full_location = data[0].display_name
-            let short_location = full_location.substr(0, full_location.indexOf(","));
+            let short_location = full_location.split(",")[0]
+            let rest_of_location = full_location.split(",")[1]
             document.getElementById("location_title").textContent = short_location
+            document.getElementById("rest_of_location").textContent = rest_of_location
             lat = data[0].lat
             lon = data[0].lon
         })
