@@ -126,6 +126,9 @@ async function call_api() {
             let short_location = full_location.split(",")[0]
             let country = "";
             let i = 4;
+
+            // This code iterates through an array of the returned location from the geocoding API. 
+            // It then selects the last item of the list which will hold the name of the country.
             while(i >= 0) {
                 if (typeof full_location.split(",")[i] !== 'undefined') {
                     country = `${full_location.split(",")[i]}, `
@@ -139,11 +142,16 @@ async function call_api() {
             let town = ""
             let area = ""
             let rest_of_location = ""
-
+            
+            // It then checks whether the returned location is in the first or second item of the array.
+            // If it is, It means that the location the user entered in acountry rather than a town or city.
+            // If this happens, the values for the town and area are set to become empty.
+            // This will make the program only display required information. 
+            // Eg. if they enter a country, only the country name will be entered
+            // But if they enter  town or city,  the town name, the province name, and the country name will be displayed.
             if (i == 0 || i == 1){
                 town = ""
                 area = ""
-                
             }
 
             else{
