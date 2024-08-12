@@ -113,7 +113,7 @@ async function call_api() {
 
     // This fetch method gets info from a geocoding API. The 
     const  geocode_apiurl = `https://geocode.maps.co/search?q=${location}&api_key=66a02cc2e9e2a170461835hsx0fb345`
-    console.log(geocode_apiurl)
+
     await fetch(geocode_apiurl)
         .then(response => {
             if (!response.ok) {
@@ -124,12 +124,40 @@ async function call_api() {
         .then(data => {
             let full_location = data[0].display_name
             let short_location = full_location.split(",")[0]
-            let rest_of_location = full_location.split(",")[1]
+            let country = "";
+            let i = 4;
+            while(i >= 0) {
+                if (typeof full_location.split(",")[i] !== 'undefined') {
+                    country = `${full_location.split(",")[i]}, `
+                    break
+                }
+
+            else{
+                i -= 1
+            }};
+
+            let town = ""
+            let area = ""
+            let rest_of_location = ""
+
+            if (i == 0 || i == 1){
+                town = ""
+                area = ""
+                
+            }
+
+            else{
+                town = `${full_location.split(",")[1]}, `
+                town = `${full_location.split(",")[2]}, `
+                rest_of_location = town + area + country
+            }
+
+            full_location.split(",")[1]
             document.getElementById("location_title").textContent = short_location
             document.getElementById("rest_of_location").textContent = rest_of_location
             lat = data[0].lat
             lon = data[0].lon
-        })
+        });
 
     const weather_apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
     // const aapl_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=AAPL&apikey=${STOCK_API_KEY}`
