@@ -1,7 +1,9 @@
 async function call_api() {
     // Hidden API key.
     
-    var STOCK_API_KEY = config.STOCK_API_KEY
+    const STOCK_API_KEY = config.STOCK_API_KEY
+    const GEOCODE_API_KEY = config.GEOCODE_API_KEY
+
 
     let datepick = document.getElementById("date_input").value;
     let date = datepick;
@@ -112,7 +114,7 @@ async function call_api() {
     
 
     // This fetch method gets info from a geocoding API. The 
-    const  geocode_apiurl = `https://geocode.maps.co/search?q=${location}&api_key=66a02cc2e9e2a170461835hsx0fb345`
+    const  geocode_apiurl = `https://geocode.maps.co/search?q=${location}&api_key=${GEOCODE_API_KEY}`
 
     await fetch(geocode_apiurl)
         .then(response => {
@@ -131,7 +133,7 @@ async function call_api() {
             // It then selects the last item of the list which will hold the name of the country.
             while(i >= 0) {
                 if (typeof full_location.split(",")[i] !== 'undefined') {
-                    country = `${full_location.split(",")[i]}, `
+                    country = full_location.split(",")[i]
                     break
                 }
 
@@ -156,7 +158,7 @@ async function call_api() {
 
             else{
                 town = `${full_location.split(",")[1]}, `
-                town = `${full_location.split(",")[2]}, `
+                area = `${full_location.split(",")[2]}, `
                 rest_of_location = town + area + country
             }
 
