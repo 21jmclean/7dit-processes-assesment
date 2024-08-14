@@ -1,7 +1,9 @@
 async function call_api() {
     // Hidden API key.
     
-    var STOCK_API_KEY = config.STOCK_API_KEY
+    const STOCK_API_KEY = config.STOCK_API_KEY
+    const GEOCODE_API_KEY = config.GEOCODE_API_KEY
+
 
     let datepick = document.getElementById("date_input").value;
     let date = datepick;
@@ -112,8 +114,8 @@ async function call_api() {
     
 
     // This fetch method gets info from a geocoding API. The 
-    const  geocode_apiurl = `https://geocode.maps.co/search?q=${location}&api_key=66a02cc2e9e2a170461835hsx0fb345`
-    console.log(geocode_apiurl)
+    const  geocode_apiurl = `https://geocode.maps.co/search?q=${location}&api_key=${GEOCODE_API_KEY}`
+
     await fetch(geocode_apiurl)
         .then(response => {
             if (!response.ok) {
@@ -123,11 +125,49 @@ async function call_api() {
         })
         .then(data => {
             let full_location = data[0].display_name
-            let short_location = full_location.substr(0, full_location.indexOf(","));
+            let short_location = full_location.split(",")[0]
+            let country = "";
+            let i = 4;
+
+            // This code iterates through an array of the returned location from the geocoding API. 
+            // It then selects the last item of the list which will hold the name of the country.
+            while(i >= 0) {
+                if (typeof full_location.split(",")[i] !== 'undefined') {
+                    country = full_location.split(",")[i]
+                    break
+                }
+
+            else{
+                i -= 1
+            }};
+
+            let town = ""
+            let area = ""
+            let rest_of_location = ""
+            
+            // It then checks whether the returned location is in the first or second item of the array.
+            // If it is, It means that the location the user entered in acountry rather than a town or city.
+            // If this happens, the values for the town and area are set to become empty.
+            // This will make the program only display required information. 
+            // Eg. if they enter a country, only the country name will be entered
+            // But if they enter  town or city,  the town name, the province name, and the country name will be displayed.
+            if (i == 0 || i == 1){
+                town = ""
+                area = ""
+            }
+
+            else{
+                town = `${full_location.split(",")[1]}, `
+                area = `${full_location.split(",")[2]}, `
+                rest_of_location = town + area + country
+            }
+
+            full_location.split(",")[1]
             document.getElementById("location_title").textContent = short_location
+            document.getElementById("rest_of_location").textContent = rest_of_location
             lat = data[0].lat
             lon = data[0].lon
-        })
+        });
 
     const weather_apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
     // const aapl_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=AAPL&apikey=${STOCK_API_KEY}`
