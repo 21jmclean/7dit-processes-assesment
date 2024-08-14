@@ -174,6 +174,7 @@ async function call_api() {
     const aapl_stock_apiUrl = "apple-stock.json"
     // const msft_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=MSFT&apikey=${STOCK_API_KEY}`
     const msft_stock_apiUrl = "microsoft-stock.json"
+    const goog_stock_apiUrl = "google-stock.json"
 
 
     // This fetch method gets data from a weather API and takes paramaters from the date input field. 
@@ -263,4 +264,30 @@ async function call_api() {
                 document.getElementById("microsoft_stock_price").textContent = ""
 
             });
+
+            // Gets data from the stock API/json file for the stock MSFT
+        await fetch(goog_stock_apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+
+        // Update HTML Elements with stock data returned from the API. 
+        .then(data => {
+            goog_close = data["Time Series (Daily)"][date]["4. close"]
+            goog_close = (Math.round(goog_close * 100))/100
+            document.getElementById("google").textContent = "Google:"
+            document.getElementById("google_stock_price").textContent = `$${goog_close}`
+
+        })
+
+        // Clears data displayed on page when an error occurs.
+        .catch(error => {
+            console.error('Error:', error)
+            document.getElementById("google").textContent = ""
+            document.getElementById("google_stock_price").textContent = ""
+
+        });
     }
