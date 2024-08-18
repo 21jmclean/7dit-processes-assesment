@@ -174,9 +174,12 @@ async function call_api() {
     const aapl_stock_apiUrl = "apple-stock.json"
     // const msft_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=MSFT&apikey=${STOCK_API_KEY}`
     const msft_stock_apiUrl = "microsoft-stock.json"
+    const goog_stock_apiUrl = "google-stock.json"
     // const nzd_usd_rateUrl = `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=USD&to_symbol=NZD&outputsize=full&apikey=${STOCK_API_KEY}`
     const nzd_usd_rateUrl = "nzd-usd_rate.json"
-    const goog_stock_apiUrl = "google-stock.json"
+    // const nzd_usd_rateUrl = `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=GBP&to_symbol=NZD&outputsize=full&apikey=${STOCK_API_KEY}`
+    const nzd_gbp_rateUrl = "nzd-gbp_rate.json"
+    
 
 
     // This fetch method gets from a weather API and takes paramaters from the date input field. 
@@ -318,4 +321,73 @@ async function call_api() {
                 document.getElementById("nzd-usd_rate").textContent = ""
 
             });
+
+        await fetch(nzd_usd_rateUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+
+            // Update HTML Elements with stock data returned from the API. 
+            .then(data => {
+                nzd_usd_rate_close = data["Time Series FX (Daily)"][date]["4. close"]
+                // nzd_usd_rate_close = (Math.round(goog_close * 100))/100
+                document.getElementById("nzd-usd").textContent = "NZD to USD:"
+                document.getElementById("nzd-usd_rate").textContent = `$1 USD = $${nzd_usd_rate_close} NZD`
+            })
+
+            // Clears data displayed on page when an error occurs.
+            .catch(error => {
+                console.error('Error:', error)
+                document.getElementById("nzd-usd").textContent = "No Exchange rates for this date"
+                document.getElementById("nzd-usd_rate").textContent = ""
+
+            });
+    await fetch(nzd_usd_rateUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+
+            // Update HTML Elements with stock data returned from the API. 
+            .then(data => {
+                nzd_usd_rate_close = data["Time Series FX (Daily)"][date]["4. close"]
+                document.getElementById("nzd-usd").textContent = "NZD to USD:"
+                document.getElementById("nzd-usd_rate").textContent = `$1 USD = $${nzd_usd_rate_close} NZD`
+            })
+
+            // Clears data displayed on page when an error occurs.
+            .catch(error => {
+                console.error('Error:', error)
+                document.getElementById("nzd-usd").textContent = "No Exchange rates for this date"
+                document.getElementById("nzd-usd_rate").textContent = ""
+
+            });
+
+    await fetch(nzd_gbp_rateUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+
+        // Update HTML Elements with stock data returned from the API. 
+        .then(data => {
+            nzd_gbp_rate_close = data["Time Series FX (Daily)"][date]["4. close"]
+            document.getElementById("nzd-gbp").textContent = "NZD to GBP:"
+            document.getElementById("nzd-gbp_rate").textContent = `£1 GBP = $${nzd_gbp_rate_close} NZD`
+        })
+
+        // Clears data displayed on page when an error occurs.
+        .catch(error => {
+            console.error('Error:', error)
+            document.getElementById("nzd-gbp").textContent = "No Exchange rates for this date"
+            document.getElementById("nzd-gbp_rate").textContent = ""
+
+        });
     }
