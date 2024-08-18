@@ -5,6 +5,7 @@ microsoft-stock.json
 google-stock.json
 nzd-usd_rate.json
 nzd-gbp_rate.json
+nzd-eur_rate.json
 !**/glob-import/dir/node_modules
 .DS_Store
 .idea

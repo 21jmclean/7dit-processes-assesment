@@ -179,6 +179,8 @@ async function call_api() {
     const nzd_usd_rateUrl = "nzd-usd_rate.json"
     // const nzd_usd_rateUrl = `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=GBP&to_symbol=NZD&outputsize=full&apikey=${STOCK_API_KEY}`
     const nzd_gbp_rateUrl = "nzd-gbp_rate.json"
+    // const nzd_usd_rateUrl = `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=EUR&to_symbol=NZD&outputsize=full&apikey=${STOCK_API_KEY}`
+    const nzd_eur_rateUrl = "nzd-eur_rate.json"
     
 
 
@@ -388,6 +390,29 @@ async function call_api() {
             console.error('Error:', error)
             document.getElementById("nzd-gbp").textContent = "No Exchange rates for this date"
             document.getElementById("nzd-gbp_rate").textContent = ""
+
+        });
+
+    await fetch(nzd_eur_rateUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+
+        // Update HTML Elements with stock data returned from the API. 
+        .then(data => {
+            nzd_eur_rate_close = data["Time Series FX (Daily)"][date]["4. close"]
+            document.getElementById("nzd-eur").textContent = "NZD to EUR:"
+            document.getElementById("nzd-eur_rate").textContent = `€1 EUR = $${nzd_eur_rate_close} NZD`
+        })
+
+        // Clears data displayed on page when an error occurs.
+        .catch(error => {
+            console.error('Error:', error)
+            document.getElementById("nzd-eur").textContent = "No Exchange rates for this date"
+            document.getElementById("nzd-eur_rate").textContent = ""
 
         });
     }
