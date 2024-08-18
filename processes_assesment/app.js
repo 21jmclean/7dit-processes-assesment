@@ -174,10 +174,12 @@ async function call_api() {
     const aapl_stock_apiUrl = "apple-stock.json"
     // const msft_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=MSFT&apikey=${STOCK_API_KEY}`
     const msft_stock_apiUrl = "microsoft-stock.json"
+    // const nzd_usd_rateUrl = `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=USD&to_symbol=NZD&outputsize=full&apikey=${STOCK_API_KEY}`
+    const nzd_usd_rateUrl = "nzd-usd_rate.json"
     const goog_stock_apiUrl = "google-stock.json"
 
 
-    // This fetch method gets data from a weather API and takes paramaters from the date input field. 
+    // This fetch method gets from a weather API and takes paramaters from the date input field. 
     await fetch(weather_apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -265,7 +267,8 @@ async function call_api() {
 
             });
 
-            // Gets data from the stock API/json file for the stock MSFT
+            
+        // Gets data from the stock API/json file for the stock MSFT
         await fetch(goog_stock_apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -274,20 +277,45 @@ async function call_api() {
             return response.json();
         })
 
-        // Update HTML Elements with stock data returned from the API. 
-        .then(data => {
-            goog_close = data["Time Series (Daily)"][date]["4. close"]
-            goog_close = (Math.round(goog_close * 100))/100
-            document.getElementById("google").textContent = "Google:"
-            document.getElementById("google_stock_price").textContent = `$${goog_close}`
+            // Update HTML Elements with stock data returned from the API. 
+            .then(data => {
+                goog_close = data["Time Series (Daily)"][date]["4. close"]
+                goog_close = (Math.round(goog_close * 100))/100
+                document.getElementById("google").textContent = "Google:"
+                document.getElementById("google_stock_price").textContent = `$${goog_close}`
 
+            })
+
+            // Clears data displayed on page when an error occurs.
+            .catch(error => {
+                console.error('Error:', error)
+                document.getElementById("google").textContent = ""
+                document.getElementById("google_stock_price").textContent = ""
+
+            });
+
+
+        await fetch(nzd_usd_rateUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
         })
 
-        // Clears data displayed on page when an error occurs.
-        .catch(error => {
-            console.error('Error:', error)
-            document.getElementById("google").textContent = ""
-            document.getElementById("google_stock_price").textContent = ""
+            // Update HTML Elements with stock data returned from the API. 
+            .then(data => {
+                nzd_usd_rate_close = data["Time Series FX (Daily)"][date]["4. close"]
+                // nzd_usd_rate_close = (Math.round(goog_close * 100))/100
+                document.getElementById("nzd-usd").textContent = "NZD to USD:"
+                document.getElementById("nzd-usd_rate").textContent = `$1 USD = $${nzd_usd_rate_close} NZD`
+            })
 
-        });
+            // Clears data displayed on page when an error occurs.
+            .catch(error => {
+                console.error('Error:', error)
+                document.getElementById("nzd-usd").textContent = "No Exchange rates for this date"
+                document.getElementById("nzd-usd_rate").textContent = ""
+
+            });
     }

@@ -2,6 +2,8 @@
 config.js
 apple-stock.json
 microsoft-stock.json
+google-stock.json
+nzd-usd_rate.json
 !**/glob-import/dir/node_modules
 .DS_Store
 .idea
