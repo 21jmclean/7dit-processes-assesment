@@ -374,7 +374,7 @@ async function call_api() {
             // Clears data displayed on page when an error occurs.
             .catch(error => {
                 console.error('Error:', error)
-                document.getElementById("nzd-usd").textContent = "No Exchange rates for this date"
+                document.getElementById("nzd-usd").textContent = ""
                 document.getElementById("nzd-usd_rate").textContent = ""
 
             });
@@ -397,7 +397,7 @@ async function call_api() {
         // Clears data displayed on page when an error occurs.
         .catch(error => {
             console.error('Error:', error)
-            document.getElementById("nzd-gbp").textContent = "No Exchange rates for this date"
+            document.getElementById("nzd-gbp").textContent = ""
             document.getElementById("nzd-gbp_rate").textContent = ""
 
         });
@@ -420,7 +420,7 @@ async function call_api() {
         // Clears data displayed on page when an error occurs.
         .catch(error => {
             console.error('Error:', error)
-            document.getElementById("nzd-eur").textContent = "No Exchange rates for this date"
+            document.getElementById("nzd-eur").textContent = ""
             document.getElementById("nzd-eur_rate").textContent = ""
 
         });
