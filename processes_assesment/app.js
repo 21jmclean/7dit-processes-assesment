@@ -190,27 +190,36 @@ async function call_api() {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+
             return response.json();
         })
 
         // Update HTML Elements with weather data returned from the API. 
         .then(data => {
-            temperature_max = data.daily.temperature_2m_max[0]
-            temperature_min = data.daily.temperature_2m_min[0]
-            weather = weather_code_id[data.daily.weather_code[0]]
-            document.getElementById("date").textContent = datepick
-            document.getElementById("weather_code_heading").textContent = "Weather:"
-            document.getElementById("weather_code").innerHTML = weather
-            document.getElementById("temperature_max").innerHTML = temperature_max + "°"
-            document.getElementById("temperature_heading_max").textContent = "Max Temperature:"
-            document.getElementById("temperature_min").innerHTML = temperature_min + "°"
-            document.getElementById("temperature_heading_min").textContent = "Min Temperature:"
+            if(data.daily.temperature_2m_max[0] != null) {
+                temperature_max = data.daily.temperature_2m_max[0]
+                temperature_min = data.daily.temperature_2m_min[0]
+                weather = weather_code_id[data.daily.weather_code[0]]
+                document.getElementById("date").textContent = datepick
+                document.getElementById("weather_code_heading").textContent = "Weather:"
+                document.getElementById("weather_code").innerHTML = weather
+                document.getElementById("temperature_max").innerHTML = temperature_max + "°"
+                document.getElementById("temperature_heading_max").textContent = "Max Temperature:"
+                document.getElementById("temperature_min").innerHTML = temperature_min + "°"
+                document.getElementById("temperature_heading_min").textContent = "Min Temperature:"
+            }
+
+            else {
+                throw new Error("No Data")
+            }
+          
         })
 
         // Clear the data displayed on the page when an error occurs (Eg. If an invalid date is selected or there is a network error.)
         .catch(error => {
             console.error('Error:', error)
             document.getElementById("location_title").textContent = "Invalid Date/location"
+            document.getElementById("rest_of_location").textContent = ""
             document.getElementById("weather_code_heading").textContent = ""
             document.getElementById("weather_code").innerHTML = ""
             document.getElementById("temperature_max").innerHTML = ""
