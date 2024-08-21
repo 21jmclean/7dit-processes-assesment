@@ -219,9 +219,9 @@ async function call_api() {
                 document.getElementById("weather_code_heading").textContent = "Weather:"
                 document.getElementById("weather_code").innerHTML = weather
                 document.getElementById("temperature_max").innerHTML = temperature_max + "°"
-                document.getElementById("temperature_heading_max").textContent = "Max Temperature:"
+                document.getElementById("temperature_heading_max").textContent = "Max Temperature (C°):"
                 document.getElementById("temperature_min").innerHTML = temperature_min + "°"
-                document.getElementById("temperature_heading_min").textContent = "Min Temperature:"
+                document.getElementById("temperature_heading_min").textContent = "Min Temperature (C°):"
             }
 
             else {
