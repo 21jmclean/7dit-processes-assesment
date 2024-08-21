@@ -10,6 +10,7 @@ async function call_api() {
     let location = document.getElementById("location_input").value;
     let lat = 0
     let lon = 0
+    let valid_location = 1
 
 
     // List to translate weather codes in to words.
@@ -115,6 +116,7 @@ async function call_api() {
 
     // This fetch method gets info from a geocoding API. The 
     const  geocode_apiurl = `https://geocode.maps.co/search?q=${location}&api_key=${GEOCODE_API_KEY}`
+    console.log(geocode_apiurl)
 
     await fetch(geocode_apiurl)
         .then(response => {
@@ -124,10 +126,15 @@ async function call_api() {
             return response.json();
         })
         .then(data => {
+            if(data[0] == null || data[0].class == "building") {
+                valid_location = 0
+                throw new Error("Invalid Location")
+            }
+            
             let full_location = data[0].display_name
             let short_location = full_location.split(",")[0]
-            let country = "";
-            let i = 4;
+            let country = ""
+            let i = 4
 
             // This code iterates through an array of the returned location from the geocoding API. 
             // It then selects the last item of the list which will hold the name of the country.
@@ -167,8 +174,12 @@ async function call_api() {
             document.getElementById("rest_of_location").textContent = rest_of_location
             lat = data[0].lat
             lon = data[0].lon
-        });
+        })
 
+        .catch(error => {
+            console.error("Error:", error)
+        })
+        
     const weather_apiUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${date}&end_date=${date}&daily=temperature_2m_max&daily=temperature_2m_min&daily=weather_code&timezone=Pacific%2FAuckland`
     // const aapl_stock_apiUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=AAPL&apikey=${STOCK_API_KEY}`
     const aapl_stock_apiUrl = "apple-stock.json"
@@ -189,6 +200,10 @@ async function call_api() {
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
+            }
+
+            if(valid_location == 0){
+                throw new Error("Invalid Location")
             }
 
             return response.json();
@@ -328,7 +343,7 @@ async function call_api() {
             // Clears data displayed on page when an error occurs.
             .catch(error => {
                 console.error('Error:', error)
-                document.getElementById("nzd-usd").textContent = "No Exchange rates for this date"
+                document.getElementById("nzd-usd").textContent = ""
                 document.getElementById("nzd-usd_rate").textContent = ""
 
             });
