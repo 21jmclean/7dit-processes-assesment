@@ -343,8 +343,8 @@ async function call_api() {
             // Clears data displayed on page when an error occurs.
             .catch(error => {
                 console.error('Error:', error)
-                document.getElementById("nzd-usd").textContent = ""
-                document.getElementById("nzd-usd_rate").textContent = ""
+                document.getElementById("nzd-usd").textContent = "NZD to USD"
+                document.getElementById("nzd-usd_rate").textContent = "Unavailable for this date"
 
             });
 
@@ -367,8 +367,8 @@ async function call_api() {
             // Clears data displayed on page when an error occurs.
             .catch(error => {
                 console.error('Error:', error)
-                document.getElementById("nzd-gbp").textContent = "No Exchange Rates for This Date"
-                document.getElementById("nzd-gbp_rate").textContent = ""
+                document.getElementById("nzd-gbp").textContent = "NZD to GBP:"
+                document.getElementById("nzd-gbp_rate").textContent = "Unavailable for this date"
 
             });
 
@@ -391,8 +391,8 @@ async function call_api() {
             // Clears data displayed on page when an error occurs.
             .catch(error => {
                 console.error('Error:', error)
-                document.getElementById("nzd-eur").textContent = ""
-                document.getElementById("nzd-eur_rate").textContent = ""
+                document.getElementById("nzd-eur").textContent = "NZD to EUR"
+                document.getElementById("nzd-eur_rate").textContent = "Unavailable for this date"
 
             });
         }
