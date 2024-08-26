@@ -53,6 +53,7 @@ input button {
     padding-right: 10px;
 }
 
+/* Flex contaienr so the cards inside it can be easily fomratted */
 .flex-container {
     display: flex;
     flex-direction: row;
@@ -60,6 +61,7 @@ input button {
     justify-content: center;
 }
 
+/* Seperate .Card class so their content can be formatted seperatley to the flex container. */
 .Card {
     justify-content: flex-start;
     align-content: flex-start;

@@ -17,11 +17,15 @@
             <div class="user-inputs">
                 <input type="date" id="date_input">
                 <input type="text" id="location_input" title="" placeholder="Please Enter a Location">
+                <!-- This button liks to the main JavaScript function "call_api()" -->
                 <button id="confirm_date" onclick="call_api()">Enter</button>
             </div>
         </div>
     </header>
+    <!-- CSS Flex Container so flexbox can be used.-->
     <div class="flex-container">
+
+        <!-- Different cards - are inside the flex container. -->
         <div class="Card">
             <h2 id = "name">Past Weather</h1>
             <h3 id="location_title"></h3>
@@ -35,7 +39,7 @@
             <p id = "temperature_min"></h3>
         </div>
     
-
+        
         <div class="Card">
             <h2>Past Stock Prices</h2>
             <h3 id="apple"></h3>
